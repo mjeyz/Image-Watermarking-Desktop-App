@@ -1,10 +1,17 @@
 from tkinter import *
+from tkinter import filedialog
+from PIL import *
 
 def close_app():
     window.quit()
 
 def select_image():
-    print("Image selection will go here.")
+    file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpeg;*.png;*.jpg")])
+
+def add_logo():
+    file_path =  filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpeg;*.jpg")])
+
+
 
 # GUI setup
 window = Tk()
@@ -26,7 +33,9 @@ frame.grid_columnconfigure(1, weight=1)  # Center (buttons)
 frame.grid_columnconfigure(2, weight=1)  # Right (close)
 
 # Left: App title
-label = Label(frame, text="Image Watermarker", font=("Times New Roman", 20, "bold"),
+label = Label(frame,
+              text="Image Watermarker",
+              font=("Times New Roman", 20, "bold"),
               bg="#e9ecef", fg="#0077b6")
 label.grid(column=0, row=0, sticky="w", padx=5)
 
@@ -53,7 +62,6 @@ add_text_btn.pack(side=LEFT, padx=(0, 10))  # right space between buttons
 add_logo_btn = Button(
     center_frame,
     text="Add Logo",
-    command=select_image,
     font=("Times New Roman", 13),
     bg="white",
     fg="#00b4d8",
@@ -61,6 +69,7 @@ add_logo_btn = Button(
     bd=0,
     padx=10,
     pady=5,
+    command=add_logo
 )
 add_logo_btn.pack(side=LEFT)
 
@@ -68,8 +77,8 @@ add_logo_btn.pack(side=LEFT)
 close_btn = Button(
     frame,
     text="Close App",
-    command=close_app,
     font=("Times New Roman", 13),
+    command=close_app,
     bg="white",
     fg="#00b4d8",
     highlightthickness=0,
@@ -79,5 +88,20 @@ close_btn = Button(
 )
 close_btn.grid(column=2, row=0, padx=5, pady=5, sticky="e")
 
+
+select_img_btn = Button(window,
+                        text="Upload Image and Watermark",
+                        command=select_image,
+                        padx=5,
+                        pady=5,
+                        highlightthickness=0,
+                        bd=0,
+                        font=("Times New Roman", 20, "bold"),
+                        fg="#a2d2ff"
+                        )
+select_img_btn.grid(column=0, row=1, padx=20, pady=20)
+
+image_label = Label(window, bg="#f5f5f5")
+image_label.grid(column=0, row=2, columnspan=3)
 # Run the app
 window.mainloop()
